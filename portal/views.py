@@ -10,7 +10,7 @@ class JobViewSet(ModelViewSet):
 
 
 class CategoryViewSet(ModelViewSet):
-    queryset = models.Category.objects.all()
+    queryset = models.Category.objects.prefetch_related('job_set').all()
     serializer_class = serializers.CategorySerializer
 
 
