@@ -15,3 +15,8 @@ class CompanyAdmin(admin.ModelAdmin):
 @admin.register(models.Job)
 class JobAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(models.Review)
+class ReviewAdmin(admin.ModelAdmin):
+    pass
