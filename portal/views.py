@@ -4,6 +4,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from . import filters
 from . import models
+from . import pagination
 from . import serializers
 
 
@@ -11,6 +12,7 @@ class JobViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = filters.JobFilter
     ordering_fields = ['title']
+    pagination_class = pagination.DefaultPagination
     queryset = models.Job.objects.prefetch_related('category').all()
     search_fields = ['title', 'description']
     serializer_class = serializers.JobSerializer
