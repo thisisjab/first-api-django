@@ -1,38 +1,19 @@
-from django.shortcuts import get_object_or_404
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+from rest_framework.viewsets import ModelViewSet
 
 from . import models
 from . import serializers
 
 
-class JobsListView(ListCreateAPIView):
+class JobViewSet(ModelViewSet):
     queryset = models.Job.objects.prefetch_related('category').all()
     serializer_class = serializers.JobSerializer
 
 
-class JobDetailView(RetrieveUpdateDestroyAPIView):
-    queryset = models.Job.objects.all()
-    serializer_class = serializers.JobSerializer
-
-
-class CategoryListView(ListCreateAPIView):
+class CategoryViewSet(ModelViewSet):
     queryset = models.Category.objects.all()
     serializer_class = serializers.CategorySerializer
 
 
-class CategoryDetailView(RetrieveUpdateDestroyAPIView):
-    queryset = models.Category.objects.all()
-    serializer_class = serializers.CategorySerializer
-
-
-class CompanyListView(ListCreateAPIView):
-    queryset = models.Company.objects.all()
-    serializer_class = serializers.CompanySerializer
-    
-
-class CompanyDetailView(RetrieveUpdateDestroyAPIView):
+class CompnayViewSet(ModelViewSet):
     queryset = models.Company.objects.all()
     serializer_class = serializers.CompanySerializer
