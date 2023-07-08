@@ -1,3 +1,4 @@
+from rest_framework.filters import SearchFilter
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -7,9 +8,10 @@ from . import serializers
 
 
 class JobViewSet(ModelViewSet):
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = filters.JobFilter
     queryset = models.Job.objects.prefetch_related('category').all()
+    search_fields = ['title', 'description']
     serializer_class = serializers.JobSerializer
 
 
