@@ -24,23 +24,10 @@ class CategoryListView(ListCreateAPIView):
     serializer_class = serializers.CategorySerializer
 
 
-class CategoryDetailView(APIView):
-    def get(self, request, id):
-        category = get_object_or_404(models.Category, id=id)
-        serializer = serializers.CategorySerializer(category)
-        return Response(serializer.data, status.HTTP_200_OK)
-    
-    def put(self, request, id):
-        category = get_object_or_404(models.Category, id=id)
-        serializer = serializers.CategorySerializer(category, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-    
-    def delete(self, request, id):
-        category = get_object_or_404(models.Category, id=id)
-        category.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+class CategoryDetailView(RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id'
+    queryset = models.Category.objects.all()
+    serializer_class = serializers.CategorySerializer
 
 
 class CompanyListView(APIView):
