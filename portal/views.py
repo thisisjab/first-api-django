@@ -20,5 +20,10 @@ class CompnayViewSet(ModelViewSet):
 
 
 class ReviewViewSet(ModelViewSet):
-    queryset = models.Review.objects.select_related('company').select_related('user').all()
     serializer_class = serializers.ReviewSerializer
+
+    def get_queryset(self):
+        return models.Review.objects.filter(company_id=self.kwargs['company_pk']).select_related('company').select_related('user').all()
+
+    def get_serializer_context(self):
+        return {'company_id': self.kwargs['company_pk']}
