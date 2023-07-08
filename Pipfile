@@ -9,6 +9,7 @@ django-environ = "*"
 djangorestframework = "*"
 django-debug-toolbar = "*"
 drf-nested-routers = "*"
+django-filter = "*"
 
 [dev-packages]
 

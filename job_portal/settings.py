@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     'core.apps.CoreConfig',
     'portal.apps.PortalConfig',
     'debug_toolbar',
