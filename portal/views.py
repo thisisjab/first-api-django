@@ -17,3 +17,8 @@ class CategoryViewSet(ModelViewSet):
 class CompnayViewSet(ModelViewSet):
     queryset = models.Company.objects.all()
     serializer_class = serializers.CompanySerializer
+
+
+class ReviewViewSet(ModelViewSet):
+    queryset = models.Review.objects.select_related('company').select_related('user').all()
+    serializer_class = serializers.ReviewSerializer
