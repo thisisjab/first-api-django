@@ -14,7 +14,6 @@ class JobsListView(ListCreateAPIView):
 
 
 class JobDetailView(RetrieveUpdateDestroyAPIView):
-    lookup_field = 'id'
     queryset = models.Job.objects.all()
     serializer_class = serializers.JobSerializer
 
@@ -25,7 +24,6 @@ class CategoryListView(ListCreateAPIView):
 
 
 class CategoryDetailView(RetrieveUpdateDestroyAPIView):
-    lookup_field = 'id'
     queryset = models.Category.objects.all()
     serializer_class = serializers.CategorySerializer
 
@@ -36,6 +34,5 @@ class CompanyListView(ListCreateAPIView):
     
 
 class CompanyDetailView(RetrieveUpdateDestroyAPIView):
-    lookup_field = 'id'
     queryset = models.Company.objects.all()
     serializer_class = serializers.CompanySerializer
