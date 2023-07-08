@@ -30,17 +30,9 @@ class CategoryDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.CategorySerializer
 
 
-class CompanyListView(APIView):
-    def get(self, request):
-        companies = models.Company.objects.all()
-        serializer = serializers.CompanySerializer(companies, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def post(self, request):
-        serializer = serializers.CompanySerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+class CompanyListView(ListCreateAPIView):
+    queryset = models.Company.objects.all()
+    serializer_class = serializers.CompanySerializer
     
 
 class CompanyDetailView(APIView):
