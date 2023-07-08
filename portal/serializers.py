@@ -14,7 +14,12 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Category
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'jobs_count']
+
+    jobs_count = serializers.SerializerMethodField(method_name='retrieve_jobs_count')
+
+    def retrieve_jobs_count(self, category):
+        return category.job_set.count()
 
 
 class CompanySerializer(serializers.ModelSerializer):
