@@ -1,13 +1,14 @@
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 
+from . import filters
 from . import models
 from . import serializers
 
 
 class JobViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['company_id']
+    filterset_class = filters.JobFilter
     queryset = models.Job.objects.prefetch_related('category').all()
     serializer_class = serializers.JobSerializer
 
