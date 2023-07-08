@@ -27,3 +27,10 @@ class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Company
         fields = ['id', 'title']
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Review
+        fields = ['id', 'body', 'company', 'user']
