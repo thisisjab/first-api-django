@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -7,17 +8,9 @@ from . import models
 from . import serializers
 
 
-class JobsListView(APIView):
-    def get(self, request):
-        jobs = models.Job.objects.prefetch_related('category').all()
-        serializer = serializers.JobSerializer(jobs, many=True)
-        return Response(serializer.data)
-    
-    def post(self, request):
-        serializer = serializers.JobSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status.HTTP_201_CREATED)
+class JobsListView(ListCreateAPIView):
+    queryset = models.Job.objects.prefetch_related('category').all()
+    serializer_class = serializers.JobSerializer
 
 
 class JobDetailView(APIView):
