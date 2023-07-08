@@ -9,7 +9,7 @@ from . import serializers
 
 class JobsListView(APIView):
     def get(self, request):
-        jobs = models.Job.objects.all()
+        jobs = models.Job.objects.prefetch_related('category').all()
         serializer = serializers.JobSerializer(jobs, many=True)
         return Response(serializer.data)
     
