@@ -15,3 +15,10 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Category
         fields = ['id', 'name']
+
+
+class CompanySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Company
+        fields = ['id', 'title']
