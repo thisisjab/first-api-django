@@ -8,3 +8,10 @@ class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Job
         fields = ['id', 'title', 'description', 'company', 'category',]
+
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Category
+        fields = ['id', 'name']
