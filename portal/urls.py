@@ -5,7 +5,7 @@ from rest_framework_nested import routers
 from . import views
 
 router = routers.DefaultRouter()
-router.register('jobs', views.JobViewSet)
+router.register('jobs', views.JobViewSet, basename='jobs')
 router.register('categories', views.CategoryViewSet)
 router.register('companies', views.CompnayViewSet)
 
