@@ -30,6 +30,10 @@ class Job(models.Model):
     category = models.ManyToManyField(Category)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = 'Job'
+        verbose_name_plural = 'Jobs'
+
     def __str__(self) -> str:
         return self.title
 
