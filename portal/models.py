@@ -5,6 +5,10 @@ from django.contrib.auth import get_user_model
 class Category(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False, unique=True)
 
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
     def __str__(self) -> str:
         return self.name
 
