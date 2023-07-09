@@ -51,7 +51,23 @@ class CompanyAdmin(admin.ModelAdmin):
 
 @admin.register(models.Job)
 class JobAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'title', 'company_title', 'categories']
+    list_per_page = 10
+
+    def get_queryset(self, request):
+        return models.Job.objects.prefetch_related('category').select_related('company').all()
+    
+    @admin.display(ordering='company__title')
+    def company_title(self, job):
+        url = (reverse('admin:portal_job_changelist')
+            + '?'
+            + urlencode({
+                'company__id': str(job.company.id)
+            }))
+        return format_html('<a href="{}">{}</a>', url, job.company.title)
+    
+    def categories(self, job):
+        return ", ".join([str(category) for category in list(job.category.all())])
 
 
 @admin.register(models.Review)
