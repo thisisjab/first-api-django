@@ -72,4 +72,26 @@ class JobAdmin(admin.ModelAdmin):
 
 @admin.register(models.Review)
 class ReviewAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'review_body', 'user_email', 'company_title']
+    list_per_page = 10
+
+    def get_queryset(self, request):
+        return models.Review.objects.select_related('user').select_related('company').all()
+    
+    def review_body(self, review):
+        return review.body[:100] + '...'
+    
+    @admin.display(ordering='user__id')
+    def user_email(self, review):
+        url = reverse('admin:core_user_change', kwargs={
+            'object_id': review.user.pk
+        })
+        return format_html('<a href="{}">{}</a>', url, review.user.email)
+    
+    @admin.display(ordering='company__title')
+    def company_title(self, review):
+        url = reverse('admin:portal_company_change', kwargs={
+            'object_id': review.company.id
+        })
+            
+        return format_html('<a href="{}">{}</a>', url, review.company.title)
