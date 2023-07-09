@@ -16,6 +16,10 @@ class Category(models.Model):
 class Company(models.Model):
     title = models.CharField(max_length=255, blank=False, null=False, unique=True)
 
+    class Meta:
+        verbose_name = 'Company'
+        verbose_name_plural = 'Companies'
+    
     def __str__(self) -> str:
         return self.title
 
