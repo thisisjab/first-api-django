@@ -29,7 +29,24 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(models.Company)
 class CompanyAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'company_title', 'jobs_count']
+    list_per_page = 10
+
+    def get_queryset(self, request):
+        return models.Company.objects.prefetch_related('job_set').annotate(Count('job')).all()
+
+    @admin.display(ordering='title')
+    def company_title(self, company):
+        url = (reverse('admin:portal_job_changelist')
+            + '?'
+            + urlencode({
+                'company__id': str(company.id)
+            }))
+        return format_html('<a href="{}">{}</a>', url, company.title)
+
+    @admin.display(ordering='job__count')
+    def jobs_count(self, company):
+        return company.job__count
 
 
 @admin.register(models.Job)
