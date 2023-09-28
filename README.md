@@ -1,4 +1,4 @@
-# my_first_api
+# My First API
 This is a simple API created using DRF. My goal was to learn following concepts and tools by using: 
 - DRF
 - Nested Routes
